@@ -1,12 +1,12 @@
-(ns hlk-server.core
+(ns oda-server.core
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.params :refer [wrap-params]]
             [environ.core :refer [env]]
             [compojure.core :refer [routes]]
-            [hlk-server.middleware :refer [wrap-dev]]
-            [hlk-server.handler.top :refer [top-routes]]
-            [hlk-server.handler.search :refer [search-routes]]
-            [hlk-server.handler.scrape :refer [scrape-routes]]
+            [oda-server.middleware :refer [wrap-dev]]
+            [oda-server.handler.top :refer [top-routes]]
+            [oda-server.handler.search :refer [search-routes]]
+            [oda-server.handler.scrape :refer [scrape-routes]]
             [ring.util.response :as response])
   (:gen-class main true))
 

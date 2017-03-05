@@ -1,8 +1,8 @@
-(ns hlk-server.handler.top
+(ns oda-server.handler.top
   (:require [compojure.core :refer [defroutes context GET]]
             [compojure.route :as route]
-            [hlk-server.view.top :refer [top-view]]
-            [hlk-server.response :as res]))
+            [oda-server.view.top :refer [top-view]]
+            [oda-server.response :as res]))
 
 (defn top
   [req]

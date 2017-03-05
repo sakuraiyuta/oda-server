@@ -1,38 +1,40 @@
-(ns hlk-server.localwiki
+(ns oda-server.client
   (:import [java.io StringReader BufferedReader])
   (:require [pl.danieljanus.tagsoup :as tagsoup]
             [clojure.walk :refer [keywordize-keys]]
             [clojure.data.json :as json]
-            [hlk-server.selector :as selector]
+            [clojure.string :as string]
+            [oda-server.selector :as selector]
             [http.async.client :as http]))
 
-(def localwiki-api-url "https://ja.localwiki.org/api/v4/pages")
-(def localwiki-url "https://ja.localwiki.org/")
+(def server-url "http://image.oml.city.osaka.lg.jp/archive/list.do")
 (def req-params {:region "region__slug"
                  :name "name"
                  :format "format"})
 
 (defn get-page
-  [region href]
+  [href & query]
   (with-open [client (http/create-client)]
-    (->> (http/GET client (str localwiki-url region "/" href))
+    (let [query (first query)
+          q (->> (map #(str (name (first %)) "=" (second %))
+                      query)
+                 (string/join "&"))
+          url (str href "?" q)]
+    (->> (http/GET client url)
          http/await
          http/body
-         str tagsoup/parse-string)))
+         str tagsoup/parse-string))))
 
-(defn get-page-links
-  [region word]
-  (let [res (with-open [client (http/create-client)]
-              (->> (http/GET client (str localwiki-url "_links/" region "/" word "/"))
-                   http/await
-                   http/body))]
-    (-> res str tagsoup/parse-string
-        (selector/by-fn #(and (= (tagsoup/tag %) :div)
-                              (= (:id (tagsoup/attributes %)) "content"))))))
+(defn search
+  [options]
+  (let [res (get-page server-url options)]
+    (-> res
+        (selector/by-fn #(and (= (tagsoup/tag %) :div))))))
+;                              (= (:id (tagsoup/attributes %)) "content"))))))
 
 (defn create-api-url
   [{:keys [search-word region] :or {search-word "光善寺駅周辺" region "hirakata"} :as params}]
-  (str localwiki-api-url
+  (str client-api-url
        "/?" (:format req-params) "=json"
        "&" (:region req-params) "=" region
        "&" (:name req-params) "=" search-word))

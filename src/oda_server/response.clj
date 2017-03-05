@@ -1,4 +1,4 @@
-(ns hlk-server.response
+(ns oda-server.response
   (:require [ring.util.response :as res]))
 
 (def response #'res/response)

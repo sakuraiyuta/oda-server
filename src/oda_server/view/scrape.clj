@@ -1,13 +1,13 @@
-(ns hlk-server.view.scrape
+(ns oda-server.view.scrape
   (:require [compojure.core :refer [defroutes context GET]]
             [pl.danieljanus.tagsoup :as tagsoup]
             [clojure.walk :refer [keywordize-keys]]
             [clojure.java.io :as io]
             [selmer.parser :as selmer]
-            [hlk-server.localwiki :refer :all]
-            [hlk-server.turtle :as turtle]
-            [hlk-server.selector :as selector]
-            [hlk-server.response :as res]))
+            [oda-server.localwiki :refer :all]
+            [oda-server.turtle :as turtle]
+            [oda-server.selector :as selector]
+            [oda-server.response :as res]))
 
 
 (defn scrape-view

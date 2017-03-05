@@ -1,12 +1,12 @@
-(ns hlk-server.view.search
+(ns oda-server.view.search
   (:require [compojure.core :refer [defroutes context GET]]
             [clojure.walk :refer [keywordize-keys]]
             [clojure.data.json :as json]
             [selmer.util :refer :all]
             [selmer.parser :refer :all]
-            [hlk-server.localwiki :refer :all]
-            [hlk-server.turtle :as turtle]
-            [hlk-server.response :as res]))
+            [oda-server.localwiki :refer :all]
+            [oda-server.turtle :as turtle]
+            [oda-server.response :as res]))
 
 (defn search-view
   [req]

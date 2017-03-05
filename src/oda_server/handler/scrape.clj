@@ -1,8 +1,8 @@
-(ns hlk-server.handler.scrape
+(ns oda-server.handler.scrape
   (:require [compojure.core :refer [defroutes context GET]]
             [compojure.route :as route]
-            [hlk-server.view.scrape :refer [scrape-view]]
-            [hlk-server.response :as res]))
+            [oda-server.view.scrape :refer [scrape-view]]
+            [oda-server.response :as res]))
 
 (defn scrape
   [req]

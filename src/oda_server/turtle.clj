@@ -1,7 +1,7 @@
-(ns hlk-server.turtle
+(ns oda-server.turtle
   (:use [clj-turtle.core])
   (:require [compojure.core :refer [defroutes context GET]]
-            [hlk-server.localwiki :refer [localwiki-url]]
+            [oda-server.client :refer [client-url]]
             [clojure.walk :refer [keywordize-keys]]))
 
 (defns dbpedia-owl "http://dbpedia.org/ontology/")
@@ -18,7 +18,7 @@
   (let [relations (map #(let [link %]
                           (turtle (str "<" my-url search-word "> ")
                                   (dc :relation)
-                                  (literal (str localwiki-url
+                                  (literal (str client-url
                                                 region "/"
                                                 (:href link)))))
                        links)]
