@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>画像キーワード登録</title>
+  <link type="text/css" rel="stylesheet" media="all" href="css/regist.css" />
+  </head>
+  <body>
+  <div id="wrapper">
+    <p>{{src}}</p>
+    <div id="contents">
+      <form method="POST" action="">
+        <table>
+        <tr>
+        <td colspan="2"><img src="http://image.oml.city.osaka.lg.jp/{{src}}"></td>
+          </tr>
+          <tr>
+          <th>地名</th>
+          <td><input type="text" id="place" name="place"><input type="button" id="mapsearch" value="Map検索"></td>
+          </tr>
+          <tr>
+          <th>キーワード</th>
+          <td><input type="text" id="keyword" name="keyword"></td>
+          </tr>
+          </table>
+          <input type="submit" id="regist" value="登録">
+          </form>
+          </div>
+          </div>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBexo9BKzLRU3FKSPlCTFH9PKVxHlBlnVE&libraries=places"></script>
+          <script src="js/map.js"></script>
+</body>
+</html>

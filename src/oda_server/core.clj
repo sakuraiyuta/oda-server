@@ -1,11 +1,13 @@
 (ns oda-server.core
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.params :refer [wrap-params]]
+            [ring.middleware.resource :refer :all]
             [environ.core :refer [env]]
             [compojure.core :refer [routes]]
             [oda-server.middleware :refer [wrap-dev]]
             [oda-server.handler.top :refer [top-routes]]
             [oda-server.handler.search :refer [search-routes]]
+            [oda-server.handler.regist :refer [regist-routes]]
             [oda-server.handler.scrape :refer [scrape-routes]]
             [ring.util.response :as response])
   (:gen-class main true))
@@ -20,8 +22,10 @@
 
 (def app
   (-> (routes search-routes
+              regist-routes
               scrape-routes
               top-routes)
+      (wrap-resource "public")
       wrap-params
       (wrap wrap-dev (:dev env))))
 

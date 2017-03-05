@@ -29,28 +29,8 @@
   [options]
   (let [res (get-page server-url options)]
     (-> res
-        (selector/by-fn #(and (= (tagsoup/tag %) :div))))))
-;                              (= (:id (tagsoup/attributes %)) "content"))))))
-
-(defn create-api-url
-  [{:keys [search-word region] :or {search-word "光善寺駅周辺" region "hirakata"} :as params}]
-  (str client-api-url
-       "/?" (:format req-params) "=json"
-       "&" (:region req-params) "=" region
-       "&" (:name req-params) "=" search-word))
-
-(defn get-json
-  [params]
-  (let [res (with-open [client (http/create-client)]
-              (->> (http/GET client (create-api-url params))
-                   http/await
-                   http/body))]
-    (-> res
-        str
-        (StringReader.)
-        (BufferedReader.)
-        json/read
-        keywordize-keys)))
+        (selector/by-fn #(and (= (tagsoup/tag %) :table)
+                              (= (:class (tagsoup/attributes %)) "tbl05"))))))
 
 (defn get-links
   [parsed]
