@@ -1,14 +1,24 @@
 table {
-    width: 400px;
+    width: 600px;
     border: 0;
 }
 
 th {
-    width: 150px;
+    width: 100px;
     height: 40px;
     background-color: yellowgreen;
 }
 
 td {
-    width: 250px;
+    width: 500px;
+}
+
+#map {
+    width: 600px;
+    height: 600px;
+    visibility: hidden;
+}
+
+input[type="text"] {
+    width: 400px;
 }

@@ -4,6 +4,7 @@
             [oda-server.selector :as selector]
             [clojure.walk :refer [keywordize-keys]]
             [clojure.data.json :as json]
+            [clojure.string :as string]
             [selmer.util :refer :all]
             [selmer.parser :refer :all]
             [oda-server.client :refer :all]
@@ -20,9 +21,10 @@
         results (-> (search params)
                     first
                     (selector/by-fn #(= (tagsoup/tag %) :td))
-                    (selector/by-fn #(= (tagsoup/tag %) :img)))]
+                    (selector/by-fn #(= (tagsoup/tag %) :img))
+                    (as-> x (map #(-> % tagsoup/attributes :src) x)))]
     (-> (render-file "templates/result.html" {:params params
-                                              :results (map #(-> % tagsoup/attributes :src) results)})
+                                              :results results})
         res/response
         res/html)))
 
